@@ -939,6 +939,77 @@
             });
         }
 
+        // Add touch swipe support for mobile
+        document.addEventListener('DOMContentLoaded', () => {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let currentSlider = null;
+            let currentCardIndex = null;
+
+            document.addEventListener('touchstart', (e) => {
+                // Check if swiping on slider or nav dots
+                const slider = e.target.closest('.media-slider');
+                const nav = e.target.closest('.media-nav');
+                
+                if (slider) {
+                    currentSlider = slider;
+                    currentCardIndex = slider.getAttribute('data-index');
+                    touchStartX = e.changedTouches[0].screenX;
+                } else if (nav) {
+                    // Find the associated slider
+                    const container = nav.closest('.media-container');
+                    if (container) {
+                        currentSlider = container.querySelector('.media-slider');
+                        currentCardIndex = nav.getAttribute('data-card');
+                        touchStartX = e.changedTouches[0].screenX;
+                    }
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchend', (e) => {
+                if (!currentSlider || !currentCardIndex) return;
+
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                currentSlider = null;
+                currentCardIndex = null;
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50; // minimum distance for swipe
+                const diff = touchStartX - touchEndX;
+
+                if (Math.abs(diff) < swipeThreshold) return;
+
+                const slides = currentSlider.querySelectorAll('.media-slide');
+                const visibleSlides = Array.from(slides).filter(s => s.style.display !== 'none');
+                
+                if (visibleSlides.length <= 1) return;
+
+                let currentIndex = -1;
+                visibleSlides.forEach((slide, i) => {
+                    if (slide.classList.contains('active')) {
+                        currentIndex = i;
+                    }
+                });
+
+                if (currentIndex === -1) return;
+
+                let newIndex;
+                if (diff > 0) {
+                    // Swipe left - next slide
+                    newIndex = (currentIndex + 1) % visibleSlides.length;
+                } else {
+                    // Swipe right - previous slide
+                    newIndex = (currentIndex - 1 + visibleSlides.length) % visibleSlides.length;
+                }
+
+                // Get the actual index in the original slides array
+                const newSlideIndex = Array.from(slides).indexOf(visibleSlides[newIndex]);
+                changeSlide(parseInt(currentCardIndex), newSlideIndex);
+            }
+        });
+
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', applyFiltersAndSort);
         document.getElementById('categoryFilter').addEventListener('change', applyFiltersAndSort);
