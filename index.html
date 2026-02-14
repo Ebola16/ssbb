@@ -803,6 +803,14 @@
                 
                 // Add up to 3 images (local with fallback to Image URLs)
                 for (let i = 1; i <= 3; i++) {
+                    const fallbackUrl = imageUrls[i - 1]; // Use corresponding Image URL as fallback
+                    
+                    // Only add image slot if there's a fallback URL OR if we want to try local images
+                    if (!fallbackUrl) {
+                        // No fallback URL, skip this slot entirely
+                        continue;
+                    }
+                    
                     // Keep title as-is, only remove characters that are truly invalid in filenames (like / \ : * ? " < > |)
                     const sanitizedTitle = mod.Title ? mod.Title.replace(/[\/\\:*?"<>|]/g, '') : '';
                     
@@ -814,17 +822,14 @@
                         return `images/mymods/${encodeURIComponent(filename)}`;
                     }) : [];
                     
-                    const fallbackUrl = imageUrls[i - 1]; // Use corresponding Image URL as fallback
-                    
-                    // Always try local image first, with fallback URL as onerror
-                    if (sanitizedTitle) {
+                    if (sanitizedTitle && imageVariants.length > 0) {
                         allMedia.push({ 
                             type: 'image', 
                             url: imageVariants[0], // Start with .png
                             variants: imageVariants.slice(1), // All other variants to try
                             fallback: fallbackUrl
                         });
-                    } else if (fallbackUrl) {
+                    } else {
                         // If no title, just use fallback
                         allMedia.push({ 
                             type: 'image', 
@@ -858,7 +863,7 @@
                                     ${allMedia.map((media, i) => `
                                         <div class="media-slide ${i === 0 ? 'active' : ''}" data-slide-index="${i}">
                                             ${media.type === 'image' 
-                                                ? `<a href="${media.url}" target="_blank"><img src="${media.url}" alt="${mod.Title}" loading="lazy" referrerpolicy="no-referrer" data-variant-index="0" data-variants='${JSON.stringify(media.variants || [])}' data-fallback="${media.fallback || ''}" onerror="const variants = JSON.parse(this.getAttribute('data-variants') || '[]'); const fallback = this.getAttribute('data-fallback'); let variantIndex = parseInt(this.getAttribute('data-variant-index') || '0'); if(variantIndex < variants.length) { this.setAttribute('data-variant-index', (variantIndex + 1).toString()); this.src = variants[variantIndex]; this.parentElement.href = variants[variantIndex]; } else if(fallback && this.src !== fallback) { this.src = fallback; this.parentElement.href = fallback; } else { console.error('Failed to load:', this.src); const slide = this.closest('.media-slide'); if(slide) slide.style.display='none'; const slideIndex = ${i}; const nav = this.closest('.media-container').querySelector('[data-card=\\\'${index}\\\']'); if(nav) { const dot = nav.querySelector('[data-slide=\\\''+slideIndex+'\\\']'); if(dot) { dot.style.display='none'; const visibleDots = Array.from(nav.querySelectorAll('.media-dot')).filter(d => d.style.display !== 'none'); if(visibleDots.length <= 1) nav.style.display='none'; } } }"></a>`
+                                                ? `<a href="${media.url}" target="_blank"><img src="${media.url}" alt="${mod.Title}" loading="lazy" referrerpolicy="no-referrer" data-variant-index="0" data-variants='${JSON.stringify(media.variants || [])}' data-fallback="${media.fallback || ''}" data-card-index="${index}" data-media-index="${i}" onerror="const variants = JSON.parse(this.getAttribute('data-variants') || '[]'); const fallback = this.getAttribute('data-fallback'); let variantIndex = parseInt(this.getAttribute('data-variant-index') || '0'); if(variantIndex < variants.length) { this.setAttribute('data-variant-index', (variantIndex + 1).toString()); this.src = variants[variantIndex]; this.parentElement.href = variants[variantIndex]; } else if(fallback && this.src !== fallback) { this.src = fallback; this.parentElement.href = fallback; } else { const slide = this.closest('.media-slide'); if(slide) slide.style.display='none'; const mediaIdx = parseInt(this.getAttribute('data-media-index')); const container = this.closest('.media-container'); if(container) { const nav = container.querySelector('.media-nav'); if(nav) { const dots = nav.querySelectorAll('.media-dot'); if(dots[mediaIdx]) { dots[mediaIdx].style.display='none'; const visibleDots = Array.from(dots).filter(d => d.style.display !== 'none'); if(visibleDots.length <= 1) nav.style.display='none'; } } } }"></a>`
                                                 : `<iframe src="${media.url}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
                                             }
                                         </div>
