@@ -289,7 +289,7 @@
     "Category": "Character",
     "Action": "Import",
     "Target": "Ike",
-    "Description": "I gave Gamidame_K's \\\"L.O.L.\\\" import Archon's wings (Darksiders II).",
+    "Description": "I gave Gamidame_K's \"L.O.L.\" import Archon's wings (Darksiders II).",
     "Image URLs": "https://i.imgur.com/efFV8fT.png, https://i.imgur.com/UMrUZIa.png, https://i.imgur.com/2wXiXRh.png",
     "Wi-Fi": "Unknown"
   },
@@ -649,7 +649,7 @@
     "Last Edited": "January 25th, 2017",
     "Category": "Misc",
     "Action": "Other (stuff we forgot)",
-    "Description": "The vBrawl version is finally here!\n\nNOTE: the instructions will say to copy the \\\"projectm\\\" folder to the root of the SD card - instead, you should copy the \\\"private\\\" folder to the root of the SD card.\n\nThanks to ebola16 for converting the ef_common.pac to work properly in vBrawl!",
+    "Description": "The vBrawl version is finally here!\n\nNOTE: the instructions will say to copy the \"projectm\" folder to the root of the SD card - instead, you should copy the \"private\" folder to the root of the SD card.\n\nThanks to ebola16 for converting the ef_common.pac to work properly in vBrawl!",
     "YouTube Links": "https://www.youtube.com/watch?v=OTjc-g8oIY8",
     "Image URLs": "http://i.imgur.com/j56kmVu.png, http://i.imgur.com/dTSMfqZ.png",
     "Wi-Fi": "Unknown"
@@ -1382,7 +1382,7 @@
     "Category": "Character",
     "Action": "Vertex, Import",
     "Target": "Wolf",
-    "Description": "Here's Zeus from God of War 3!\n\nThe download link leads to my \\\"Ryu over Wolf (More Alts + SFX Fix)\\\" with more characters, including Zeus.",
+    "Description": "Here's Zeus from God of War 3!\n\nThe download link leads to my \"Ryu over Wolf (More Alts + SFX Fix)\" with more characters, including Zeus.",
     "Image URLs": "http://i.imgur.com/XfOgDhN.png, http://i.imgur.com/2E2Z9aF.png, http://i.imgur.com/YRBYu8W.png",
     "Wi-Fi": "No"
   },
@@ -3026,7 +3026,7 @@
     "Category": "Character",
     "Action": "Texture, Vertex, Import",
     "Target": "Peach",
-    "Description": "Works over regular Peach, but I recommend this Zexion PSA for papery effects (http://forums.kc-mm.com/Gallery/BrawlView.php?Number=205593).\nWow that cloak was hard to rig. I even had to cut part of the top off to better see her face. If you ever need to remove part of a model and a gap is created, you can use the \\\"Cap Hole\\\" modifier in 3ds Max to fill the gap!",
+    "Description": "Works over regular Peach, but I recommend this Zexion PSA for papery effects (http://forums.kc-mm.com/Gallery/BrawlView.php?Number=205593).\nWow that cloak was hard to rig. I even had to cut part of the top off to better see her face. If you ever need to remove part of a model and a gap is created, you can use the \"Cap Hole\" modifier in 3ds Max to fill the gap!",
     "Image URLs": "http://i.imgur.com/hAgTWaT.png, http://i.imgur.com/1DI4R6T.png, http://i.imgur.com/BIBqjy7.png",
     "Wi-Fi": "Unknown"
   },
