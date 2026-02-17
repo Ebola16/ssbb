@@ -727,10 +727,10 @@
                 <option value="">All Categories</option>
             </select>
             <select id="sortSelect">
-                <option value="Hack ID">Sort: Last Added</option>
-                <option value="Last Edited">Sort: Last Edited</option>
-                <option value="Title">Sort: Title</option>
                 <option value="Category">Sort: Category</option>
+                <option value="Hack ID">Sort: Last Added</option>
+                <option value="Last Edited" selected>Sort: Last Edited</option>
+                <option value="Title">Sort: Title</option>
             </select>
             <button class="sort-order-btn" id="sortOrderBtn">
                 <span class="sort-indicator" id="sortIndicator">↓</span>
@@ -747,7 +747,7 @@
     <script>
         let modsData = [];
         let filteredData = [];
-        let currentSort = { field: 'Hack ID', direction: 'desc' };
+        let currentSort = { field: 'Last Edited', direction: 'desc' };
 
         // Load data
         fetch('brawl_data.json')
